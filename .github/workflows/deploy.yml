@@ -12,7 +12,6 @@ jobs:
   DeployArtifacts:
     name: Deploy artifacts to Maven Central
     if: github.ref == 'refs/heads/release'
-    needs: [BuildAndTest]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
