@@ -87,7 +87,7 @@ public class StringItems extends ArrayList<StringItem> {
 
 	public void prepare() throws IOException {
 		for (StringItem s : this) {
-			if (s.data.length() > 0x7FFF) {
+			if (s.data != null && s.data.length() > 0x7FFF) {
 				useUTF8 = false;
 			}
 		}
@@ -106,8 +106,8 @@ public class StringItems extends ArrayList<StringItem> {
 				item.dataOffset = offset;
 				map.put(stringData, offset);
 				if (useUTF8) {
-					int length = stringData.length();
-					byte[] data = stringData.getBytes("UTF-8");
+					int length = stringData == null ? 0 : stringData.length();
+					byte[] data = stringData == null ? new byte[0] : stringData.getBytes("UTF-8");
 					int u8lenght = data.length;
 
 					if (length > 0x7F) {
@@ -125,8 +125,8 @@ public class StringItems extends ArrayList<StringItem> {
 					baos.write(0);
 					offset += 3 + u8lenght;
 				} else {
-					int length = stringData.length();
-					byte[] data = stringData.getBytes("UTF-16LE");
+					int length = stringData == null ? 0 :stringData.length();
+					byte[] data = stringData == null ? new byte[0] : stringData.getBytes("UTF-16LE");
 					if (length > 0x7FFF) {
 						int x = (length >> 16) | 0x8000;
 						baos.write(x);
