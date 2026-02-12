@@ -120,6 +120,7 @@
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>central</serverId>
+                            <autoPublish>true</autoPublish>
                         </configuration>
                     </plugin>
                     <plugin>
